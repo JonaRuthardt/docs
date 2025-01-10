@@ -1,2 +1,7 @@
-# docs
-This repository is a collection of tutorials, project documentation, and resources focused on topics related to artificial intelligence, deep learning, and computational workflows.
+For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+
+## Important Commands
+
+* `mkdocs serve` - Start the live-reloading docs server.
+* `mkdocs build` - Build the documentation site.
+* `mkdocs gh-deploy --clean` - Build and deploy site to github.
