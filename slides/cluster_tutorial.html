@@ -20,7 +20,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 
 <h1 id="working-with-clusters-for-deep-learning">Working with Clusters for Deep Learning</h1>
@@ -38,7 +38,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h1 id="the-alex-cluster">The Alex Cluster</h1>
 <p>To work effectively with a compute cluster, it is important to be familiar with its high-level architecture and which components it is comprised of. The following sections provide a basic introduction to the Alex cluster by FAU. For more detailed information, see the <a href="https://doc.nhr.fau.de/clusters/alex/">official documentation</a>.</p>
@@ -57,7 +57,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="why-use-gpu-clusters">Why Use GPU Clusters?</h3>
 <p>When scaling up model architectures and the volume of training/evaluation data, computational demands can quickly overwhelm personal computers or local GPUs. In contrast, GPU clusters offer the following advantages:</p>
@@ -80,7 +80,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="differences-to-local-computing">Differences to Local Computing</h3>
 <table>
@@ -132,10 +132,10 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h2 id="compute-architecture">Compute Architecture</h2>
-<p>On a high level, a cluster can be conceptualized individual computers (nodes) that are connected to a central entity and can exchange information. Nonetheless, each node has its own CPU, memory, and storage. A cluster is typically made up of at least two types of nodes:</p>
+<p>On a high level, a cluster can be conceptualized as individual computers (nodes) that are connected to a central entity and can exchange information. Nonetheless, each node has its own CPU, memory, and storage. A cluster is typically made up of at least two types of nodes:</p>
 <h3 id="login-nodes">Login Nodes</h3>
 <p>The login nodes serve as your way to <strong>access the cluster</strong>. When you connect to the cluster, you are automatically connected to one of these nodes. They provide you with a basic interface to interact with the cluster (e.g., file management, coding, submitting jobs). However, they are not intended for any serious computational workload or running jobs. Since they are shared across multiple users, be mindful and <strong>avoid running resource-intensive processes</strong> on login nodes.</p>
 <h3 id="compute-nodes">Compute Nodes</h3>
@@ -162,9 +162,39 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<p>TODO: add figure</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-mermaid">graph TD
+    %% Define User
+    U[User] --&gt;|SSH/Command Access| A[Login Node]
+
+    %% Define Login Node and Compute Nodes
+    A --&gt;|Job Submission| B1[Compute Node 1]
+    A --&gt; B2[Compute Node 2]
+    A --&gt; B3[Compute Node 3]
+
+    %% Define GPUs for each compute node
+    subgraph .
+        B1 --&gt; G1[GPU 1]
+        B1 --&gt; G2[GPU 2]
+        B1 --&gt; G3[GPU 3]
+        B1 --&gt; G4[GPU 4]
+    end
+
+    subgraph .
+        B2 --&gt; G5[GPU 1]
+        B2 --&gt; G6[GPU 2]
+        B2 --&gt; G7[GPU 3]
+        B2 --&gt; G8[GPU 4]
+    end
+
+    subgraph .
+        B3 --&gt; G9[GPU 1]
+        B3 --&gt; G10[GPU 2]
+        B3 --&gt; G11[GPU 3]
+        B3 --&gt; G12[GPU 4]
+    end
+</code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -178,7 +208,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h2 id="filesystems-and-data-storage">Filesystems and Data Storage</h2>
 <p>In addition to the storage on the node itself, the cluster has a centralized filesystem that all nodes can access. This allows users to store and manage their data and models. This section will guide you through the cluster’s available filesystems, their intended use, and best practices for managing your data effectively. Understanding these will help you optimize storage, maintain data integrity, and avoid issues such as quota limits or accidental data loss.</p>
@@ -195,7 +225,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="overview">Overview</h3>
 <p>The cluster provides several filesystems, each with specific purposes, storage capacities, and backup policies. Here’s a summary of the most essential ones:</p>
@@ -253,7 +283,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="accessing-storage">Accessing Storage</h3>
 <p>The above file systems (except for the node-local $TMPDIR) are mounted across all cluster nodes. You can easily access the storage directories from anywhere using their predefined environment variables. Here are two examples:</p>
@@ -282,14 +312,14 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="best-practices">Best Practices</h3>
 <ul>
 <li>Use $HOME or $HPCVAULT for important files due to backups and snapshots</li>
 <li>Store temporary or large files in $WORK, or $TMPDIR (will be deleted after job finished!).</li>
 <li>Stage your data to node-local $TMPDIR when fast read/write operations are essential (<a href="https://doc.nhr.fau.de/data/staging/?h=data+staging#staging-data-in-and-out">cf</a>)</li>
-<li>Regularly monitor quotas (run [<code>shownicerquota.p](http://shownicerquota.pl/)l</code>) and clean up unnecessary files</li>
+<li>Regularly monitor quotas (run <code>shownicerquota.pl</code>) and clean up unnecessary files</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
@@ -304,7 +334,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="recovering-overwrittendeleted-files">Recovering Overwritten/Deleted Files</h3>
 <p>The snapshots taken on $HOME and $HPCVAULT in regular intervals allow you to restore files that may have been deleted:</p>
@@ -334,7 +364,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h2 id="interaction-between-components">Interaction Between Components</h2>
 <p>Now that you know what kind of basic building blocks make up a cluster, let’s look at a typical workflow to illustrate how these components work together:</p>
@@ -350,7 +380,15 @@ Compute node is allocated and your code starts executing</li>
 <li><strong>Access Results</strong><br />
 Log back into the login node and find your results at the respective location of the filesystem</li>
 </ol>
-<p>TODO: add figure</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-mermaid">flowchart TD
+    A[User] --&gt;|SSH/scp/rsync| B[Login Node]
+    B --&gt;|Submit Job| D[Job Scheduler]
+    D --&gt;|Allocate Resources| E[Compute Node]
+    C[Shared Storage System] 
+    B &lt;--&gt;|Edit Datasets, Scripts, etc.| C
+    C --&gt;|Fetch Code| E
+    E --&gt;|Store Results| C
+</code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -364,7 +402,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h1 id="connecting-to-the-cluster">Connecting to the Cluster</h1>
 <p>Now that you are familiar with the concept of compute clusters, let’s try actually using one.</p>
@@ -384,7 +422,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="configuring-ssh-keys">Configuring SSH Keys</h3>
 <p>To be able to access the cluster, authentication of your user is necessary. For this, we will be using SSH key pairs. Follow these steps for generating and uploading the keys:</p>
@@ -409,7 +447,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="editing-ssh-config">Editing SSH Config</h3>
 <p>The Alex cluster is part of the bigger FAU high-performance compute center which uses a central dialog server from which a so-called <em>proxy jump</em> to the GPU cluster is performed. For this to work, we need to add some configurations to the <code>~/.ssh/config</code> file on your machine. This will ensure the cluster address, authentication method, etc. are all set-up correctly when you try to connect.</p>
@@ -448,7 +486,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <p>!!! note &quot;Note ...&quot;</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>The file name and location must be `~/.ssh/config` (no file extension like .txt)
@@ -468,7 +506,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="testing-your-connection">Testing Your Connection</h3>
 <p>If all worked correctly, you should now be able to connect to the cluster. For that, first connect to the dialog server using the following command:</p>
@@ -489,19 +527,22 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h2 id="transferring-files-rsyncscp">Transferring Files (rsync/scp)</h2>
 <p>In case you want to manually transfer files from your local system to the cluster or vice versa, you can use the <code>scp</code> command:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash"><span class="hljs-comment"># Local file -&gt; cluster</span>
-scp path/to/file &lt;USERNAME&gt;@&lt;CLUSTER&gt;:/path/to/destination
+scp -r path/to/file &lt;USERNAME&gt;@&lt;CLUSTER&gt;:/path/to/destination
 <span class="hljs-comment"># Remote file -&gt; local machine</span>
-scp &lt;USERNAME&gt;@&lt;CLUSTER&gt;:/path/to/file path/to/destination
+scp -r &lt;USERNAME&gt;@&lt;CLUSTER&gt;:/path/to/file path/to/destination
 </code></pre>
 <p>Be sure to correctly replace the <code>&lt;USERNAME&gt;</code> and <code>&lt;CLUSTER&gt;</code> tags with your username and the cluster address (e.g., <code>alex</code>), respectively. Also, specify the file/folder you want to copy.</p>
 <p>For larger transfers, it can be recommendable to use <code>rsync</code> :</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash">rsync -avz path/to/file &lt;USERNAME&gt;@&lt;CLUSTER&gt;:/path/to/destination
 </code></pre>
+<p><strong>Hint:</strong> by adding the <em>exclude</em> flag (e.g., <code>--exclude *.pt</code>), it is possible to ignore certain files or file types in the download. This can be handy when you only want to transfer your code without the large model checkpoints.</p>
+<h2 id="local-vs-remote-development">Local vs. Remote Development</h2>
+<p>When working with a cluster, you have two main options for how to develop and test your code: <strong>local</strong> or <strong>remote development</strong>. Each has its strengths and weaknesses and the workflow you go for can depend on your project requirements or personal preferences. Here is an overview of both:</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -515,24 +556,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
-<header>GPU Cluster Guide</header>
-<h2 id="local-vs-remote-development">Local vs. Remote Development</h2>
-<p>When working with a cluster, you have two main options for how to develop and test your code: <strong>local</strong> or <strong>remote development</strong>. Each has its strengths and weaknesses and the workflow you go for can depend on your project requirements or personal preferences. Here is an overview of both:</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
-  font-size: 20px;
-}
-hr {
-  display: none; /* Hides horizontal lines */
-}
-" lang="en-US" data-marpit-pagination="21" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
-  font-size: 20px;
-}
-hr {
-  display: none; /* Hides horizontal lines */
-}
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h3 id="local-development---implement-locally-run-on-cluster">Local Development - Implement Locally, Run on Cluster</h3>
 <p><strong>Workflow:</strong></p>
@@ -552,6 +576,38 @@ hr {
 <li><strong>Different environment</strong> (local environment may differ from that of cluster (e.g., CPU vs. GPU, CUDA versions etc.))</li>
 </ul>
 </section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
+  font-size: 20px;
+}
+hr {
+  display: none; /* Hides horizontal lines */
+}
+" lang="en-US" data-marpit-pagination="21" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
+  font-size: 20px;
+}
+hr {
+  display: none; /* Hides horizontal lines */
+}
+;" data-marpit-pagination-total="37">
+<header>GPU Cluster Guide</header>
+<h3 id="remote-development---develop-and-run-on-cluster">Remote Development - Develop and Run on Cluster</h3>
+<p><strong>Workflow:</strong></p>
+<ul>
+<li>Connect to the cluster directly and implement everything there using and IDE/editor like VS Code or PyCharm (or command line tools like <code>vim</code> or <code>nano</code>)</li>
+<li>Execute and debug all experiments on the cluster itself</li>
+</ul>
+<p><strong>Pros:</strong></p>
+<ul>
+<li><strong>Consistent environment</strong> (development and execution happens in same software and hardware environment)</li>
+<li><strong>Less management overhead</strong> (no need to maintain and manage two separate code and data instances)</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li><strong>Connectivity dependency</strong> (requires internet connection at all times)</li>
+<li><strong>Resource availability</strong> (you might need to wait for resources to get allocated)</li>
+<li><strong>Inefficient use of resources</strong> (testing and debugging might drastically reduce resource utilization)</li>
+</ul>
+</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
 }
@@ -564,25 +620,19 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h3 id="remove-development---develop-and-run-on-cluster">Remove Development - Develop and Run on Cluster</h3>
-<p><strong>Workflow:</strong></p>
-<ul>
-<li>Connect to the cluster directly and implement everything there using and IDE/editor like VS Code or PyCharm (or command line tools like <code>vim</code> or <code>nano</code>)</li>
-<li>Execute and debug all experiments on the cluster itself</li>
-</ul>
-<p><strong>Pros:</strong></p>
-<ul>
-<li><strong>Consistent environment</strong> (development and execution happens in same environment)</li>
-<li><strong>Immediate access to resources</strong> (test can directly performed on the testing hardware)</li>
-<li><strong>Less management overhead</strong> (no need to maintain and manage two separate code and data instances)</li>
-</ul>
-<p><strong>Cons:</strong></p>
-<ul>
-<li><strong>Connectivity dependency</strong> (requires internet connection at all times)</li>
-<li><strong>Inefficient use of resources</strong> (testing and debugging might drastically reduce resource utilization)</li>
-</ul>
+<h3 id="remote-development-with-vs-code">Remote Development with VS Code</h3>
+<ol>
+<li>Ensure you have VS Code installed on your local machine.</li>
+<li>In VS Code, install the “Remote Development” extension package.</li>
+<li>In the command pallete (cmd/strg + P), select “Remote-SSH: Connect to Host …”.</li>
+<li>If the configuration you created previously is correct, the Alex cluster should already show up as an selectable option.</li>
+<li>Now, you can use the familiar VS Code interface, but interact with files and the command line on the cluster instead of on your machine.</li>
+</ol>
+<p>!!! note &quot;About debugging ...&quot;<br />
+If you want to debug and execute code using your VS Code environment, be sure to connect to an interactive node instead of running it on the login node.</p>
+<p>For more information about remote development using SSH, <a href="https://code.visualstudio.com/docs/remote/ssh">see the official documentation</a>.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -596,19 +646,12 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h3 id="remote-development-with-vs-code">Remote Development with VS Code</h3>
-<ol>
-<li>Ensure you have VS Code installed on your local machine.</li>
-<li>In VS Code, install the “Remote Development” extension package.</li>
-<li>In the command pallete (cmd/strg + P), select “Remote-SSH: Connect to Host …”.</li>
-<li>If the configuration you created previously is correct, the Alex cluster should already show up as an selectable option.</li>
-<li>Now, you can use the familiar VS Code interface, but interact with files and the command line on the cluster instead of on your machine.</li>
-</ol>
-<p>For more information about remote development using SSH, <a href="https://code.visualstudio.com/docs/remote/ssh">see the official documentation</a>.</p>
+<h1 id="setting-up-the-environment">Setting up the Environment</h1>
+<p>Once you are authenticated and logged into the cluster, the next step is to further set up up your environment to ensure you can use the necessary software and GPU resources.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-marpit-fragments="4" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
 }
 hr {
@@ -620,9 +663,18 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h1 id="setting-up-the-environment">Setting up the Environment</h1>
+<h2 id="modules">Modules</h2>
+<p><a href="https://modules.sourceforge.net">Environment modules</a> provide you with different versions of compilers, applications, and environments and are used by many clusters to dynamically manage software environments. It allows you to load and unload software packages, which ensures compatibility and avoids conflicts between software versions while being easy to use.</p>
+<p>Here are the basic commands to work with the <code>modules</code> system:</p>
+<ul>
+<li data-marpit-fragment="1"><code>module avail</code>: shows all software modules available on the cluster</li>
+<li data-marpit-fragment="2"><code>module load/unload &lt;module_name&gt;</code>: load or unload module you want to use (e.g., <code>python</code>)</li>
+<li data-marpit-fragment="3"><code>module list</code>: shows all software modules currently loaded in the environment</li>
+<li data-marpit-fragment="4"><code>module purge</code>: reset to a clean environment</li>
+</ul>
+<p>Use the modules package to make Python available by running <code>module load python</code>.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -636,10 +688,18 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h2 id="modules">Modules</h2>
-<p>TODO module load stuff</p>
+<h2 id="conda">Conda</h2>
+<p>Once you have loaded the appropriate Python module, it’s good practice to create an isolated Python environment for each project using Conda or Python's venvs. This ensures your dependencies are self-contained and avoids interference with other users or projects.</p>
+<p>A conda instalation is already available through the <code>python</code> module you just loaded. You can create a new environment with the following command:</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash">conda create --name &lt;ENV_NAME&gt; python=&lt;PYTHON_VERSION&gt;
+</code></pre>
+<p>Once activated (<code>conda activate &lt;ENV_NAME&gt;</code>), you can install libraries using <code>pip</code> or <code>conda</code>. To make sure that the hardware is correctly supported, install packages using an (interactive) job. As the compute nodes are not configured with internet access by default, it is important to configure the proxy so that additional software can be downlaoded:</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash"><span class="hljs-built_in">export</span> http_proxy=http://proxy:80
+<span class="hljs-built_in">export</span> https_proxy=http://proxy:80
+</code></pre>
+<p>For added convenience, you may also add these statements to your <code>.bashrc</code> file (called every time new bash shell is initiated).</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -653,9 +713,10 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h2 id="conda">Conda</h2>
+<h1 id="scheduling-jobs">Scheduling Jobs</h1>
+<p><strong>SLURM</strong> (Simple Linux Utility for Resource Management) is a workflow manager used for scheduling jobs and managing the resources on clusters. It allows users to request specific resources (like GPUs, CPUs, or memory) and submit jobs to the cluster’s job queue.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -669,24 +730,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
-<header>GPU Cluster Guide</header>
-<h1 id="scheduling-jobs">Scheduling Jobs</h1>
-<p><strong>SLURM</strong> (Simple Linux Utility for Resource Management) is a workflow manager used for scheduling jobs and managing the resources on clusters. It allows users to request specific resources (like GPUs, CPUs, or memory) and submit jobs to the cluster’s job queue.</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
-  font-size: 20px;
-}
-hr {
-  display: none; /* Hides horizontal lines */
-}
-" lang="en-US" data-marpit-pagination="28" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
-  font-size: 20px;
-}
-hr {
-  display: none; /* Hides horizontal lines */
-}
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h2 id="slurm-basics">SLURM Basics</h2>
 <p>Before submitting jobs, it is important to understand the following SLURM commands:</p>
@@ -717,19 +761,19 @@ Once submitted, the job will be added to the queue and get assigned a unique job
 <li><code>scancel</code>: Cancels a specific job given its job ID (e.g., <code>scancel 1234568</code>).</li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
 }
 hr {
   display: none; /* Hides horizontal lines */
 }
-" lang="en-US" data-marpit-pagination="29" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
+" lang="en-US" data-marpit-pagination="28" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
   font-size: 20px;
 }
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h2 id="job-files">Job Files</h2>
 <p>To run an experiment or script, you need to create a job submission script that specifies the resources required and the commands to execute. Here’s a simple job file that prints whether CUDA is available in PyTorch:</p>
@@ -757,19 +801,19 @@ python -c <span class="hljs-string">&quot;import torch; print(&#x27;cuda availab
 </code></pre>
 <p>In the job file, specify the experiments/code you want to execute. Afterwards, you can submit the job via the <code>sbatch</code> command.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
 }
 hr {
   display: none; /* Hides horizontal lines */
 }
-" lang="en-US" data-marpit-pagination="30" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
+" lang="en-US" data-marpit-pagination="29" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
   font-size: 20px;
 }
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h2 id="job-arrays">Job Arrays</h2>
 <p>Batch arrays enable you to run multiple similar jobs in one go. This can be useful when iterating over different model configurations (e.g., hyperparameter tuning) and more convenient then manually managing and scheduling various jobs yourself.</p>
@@ -778,7 +822,7 @@ hr {
 <span class="hljs-comment">#SBATCH --job-name=run_experiment</span>
 <span class="hljs-comment">#SBATCH --output=results_%A_%a.out</span>
 <span class="hljs-comment">#SBATCH --time=00:59:00</span>
-<span class="hljs-comment">#SBATCH --array=0-15</span>
+<span class="hljs-comment">#SBATCH --array=0-4</span>
 <span class="hljs-comment">#SBATCH --ntasks=1</span>
 <span class="hljs-comment">#SBATCH --gres=gpu:a40:1</span>
 <span class="hljs-comment">#SBATCH --nodes=1</span>
@@ -793,19 +837,19 @@ python experiment.py --lr=<span class="hljs-variable">$LR</span>
 <p>Here, <code>$SLURM_ARRAY_TASK_ID</code> is automatically set to the corresponding task ID. The total number of tasks is stored in <code>$SLURM_ARRAY_TASK_COUNT</code>. You can additionally specify the maximum number of concurrent jobs using the <code>%</code> operator (e.g., <code>--array=0-7%4</code> creates 8 tasks but only runs 4 of them at any time). The output is saved to a text file named <code>results_&lt;job_id&gt;_&lt;task_id&gt;</code> indicated by <code>%A</code> and <code>%a</code>, respectively.</p>
 <p>For a more detailed introduction and advanced use cases see the <a href="https://slurm.schedmd.com/job_array.html">official SLURM documentation</a>. Another handy way of organizing and executing experiments with job arrays for hyperparameter sweeps is suggested by <a href="https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial1/Lisa_Cluster.html#Job-Arrays">Phillip Lippe</a>.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
 }
 hr {
   display: none; /* Hides horizontal lines */
 }
-" lang="en-US" data-marpit-pagination="31" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
+" lang="en-US" data-marpit-pagination="30" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
   font-size: 20px;
 }
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 <h2 id="interactive-sessions">Interactive Sessions</h2>
 <p>Interactive sessions allow you to access a compute node directly for debugging or experimentation. Other then normal jobs, interactive sessions make it possible to continuously execute code without terminating the resource allocation after the initial script concluded. This can be useful for verifying the correctness of commands or debugging where waiting for resource allocation after every small change is unfeasible.</p>
@@ -819,6 +863,26 @@ hr {
 <li>The session is not automatically ended once your script finished running and may be idling for extended times. Therefore, interactive sessions are less efficient and should only be used when necessary.</li>
 </ol>
 </section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
+  font-size: 20px;
+}
+hr {
+  display: none; /* Hides horizontal lines */
+}
+" lang="en-US" data-marpit-pagination="31" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
+  font-size: 20px;
+}
+hr {
+  display: none; /* Hides horizontal lines */
+}
+;" data-marpit-pagination-total="37">
+<header>GPU Cluster Guide</header>
+<h2 id="attaching-to-running-jobs">Attaching to Running Jobs</h2>
+<p>If you want to monitor the resource utilization of your experiment, it is necessary to connect to the node allocated to your job. The following command allows you to attach to a running job from a login node:</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash">srun --jobid=&lt;JOB_ID&gt; --overlap --pty /bin/bash -l
+</code></pre>
+<p>After replacing <code>&lt;JOB_ID&gt;</code> with your specific job ID (can be obtained via <code>squeue</code>), you can use tools like <code>nvidia-smi</code> or <code>htop</code> to check how the available resources are utilized.</p>
+</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
 }
@@ -831,13 +895,17 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h2 id="attaching-to-running-jobs">Attaching to Running Jobs</h2>
-<p>If you want to monitor the resource utilization of your experiment, it is necessary to connect to the node allocated to your job. The following command allows you to attach to a running job from a login node:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash">srun --jobid=&lt;JOB_ID&gt; --overlap --pty /bin/bash -l
-</code></pre>
-<p>After replacing <code>&lt;JOB_ID&gt;</code> with your specific job ID (can be obtained via <code>squeue</code>), you can use tools like <code>nvidia-smi</code> or <code>htop</code> to check how the available resources are utilized.</p>
+<h1 id="best-practices-1">Best Practices</h1>
+<h3 id="test-your-code">Test Your Code</h3>
+<p>Make sure your code runs before scheduling large-scale experiments (e.g., test locally or with small subset of data). It is frustrating to have jobs fail mid-way, especially the cluster is busy and allocation might take a while (also, we don’t want to waste our scarce GPU resources <img class="emoji" draggable="false" alt="😢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f622.svg" data-marp-twemoji=""/>).</p>
+<h3 id="only-request-resources-you-need">Only Request Resources You Need</h3>
+<p>Make sure to only request so many resources as you actually need. Besides not taking up GPUs that could be used by others, there’s also something in for you: the shorter the job and the less resources required, the faster resources will be allocated. That said, requesting too little (esp. runtime) may cause your experiments to be terminated too early or fail due to out-of-memory (OOM) errors. Knowing the requirements of your setup is important and factor in a little leeway.</p>
+<h3 id="use-version-control">Use Version Control</h3>
+<p>Despite some of the filesystem being backed up and creating regular snapshots, a risk of losing data remains. Therefore, be sure to regularly commit and push changes made to your codebase (e.g., via github).</p>
+<h3 id="data-staging">Data Staging</h3>
+<p>Especially when working with models or data that require frequent IO operations, staging your data can be helpful. Here, first copy/extract your data to the node-local and very fast <code>$TMPDIR</code> directory before executing your experiments. Compared to directly loading from the original directly (e.g., <code>$WORK</code>), this additional step can significantly speed up some workflows and improve resource utilization.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -851,19 +919,12 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h1 id="best-practices-1">Best Practices</h1>
-<h3 id="test-your-code">Test Your Code</h3>
-<p>Make sure your code runs before scheduling large-scale experiments (e.g., test locally or with small subset of data). It is frustrating to have jobs fail mid-way, especially the cluster is busy and allocation might take a while (also, we don’t want to waste our scarce GPU resources <img class="emoji" draggable="false" alt="😢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f622.svg" data-marp-twemoji=""/>).</p>
-<h3 id="only-request-resources-you-need">Only Request Resources You Need</h3>
-<p>Make sure to only request so many resources as you actually need. Besides not taking up GPUs that could be used by others, there’s also something in for you: the shorter the job and the less resources required, the faster resources will be allocated. That said, requesting too little (esp. runtime) may cause your experiments to be terminated too early or fail due to out-of-memory (OOM) errors. Knowing the requirements of your setup is important and factor in a little leeway.</p>
-<h3 id="use-version-control">Use Version Control</h3>
-<p>Despite some of the filesystem being backed up and creating regular snapshots, a risk of losing data remains. Therefore, be sure to regularly commit and push changes made to your codebase (e.g., via github).</p>
-<h3 id="data-staging">Data Staging</h3>
-<p>Especially when working with models or data that require frequent IO operations, staging your data can be helpful. Here, first copy/extract your data to the node-local and very fast <code>$TMPDIR</code> directory before executing your experiments. Compared to directly loading from the original directly (e.g., <code>$WORK</code>), this additional step can significantly speed up some workflows and improve resource utilization.</p>
+<h1 id="troubleshooting-and-faqs">Troubleshooting and FAQs</h1>
+<p>If you encountered other issues that other people might have as well, let me know and I can add them here.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-marpit-fragments="2" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
 }
 hr {
@@ -875,12 +936,16 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h1 id="troubleshooting-and-faqs">Troubleshooting and FAQs</h1>
-<p>If you encountered other issues that other people might have as well, let me know and I can add them here.</p>
+<h1 id="acknowledgements">Acknowledgements</h1>
+<p>This tutorial and the contents provided partially built upon the following resources:</p>
+<ul>
+<li data-marpit-fragment="1"><a href="https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial1/Lisa_Cluster.html">&quot;Working with the Snellius cluster&quot;</a>, a guide by Phillip Lippe and Danilo de Goede</li>
+<li data-marpit-fragment="2"><a href="https://doc.nhr.fau.de">Official Documentation</a> by the HPC people at FAU</li>
+</ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-marpit-fragments="2" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
 }
 hr {
@@ -892,14 +957,11 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<h1 id="acknowledgements">Acknowledgements</h1>
-<p>This tutorial and the contents provided partially built upon the following resources:</p>
-<ul>
-<li data-marpit-fragment="1"><a href="https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial1/Lisa_Cluster.html">&quot;Working with the Snellius cluster&quot;</a>, a guide by Phillip Lippe and Danilo de Goede</li>
-<li data-marpit-fragment="2"><a href="https://doc.nhr.fau.de">Official Documentation</a> by the HPC people at FAU</li>
-</ul>
+<p>!!! note &quot;Now that we ended ...&quot;<br />
+Your feedback is important! If you encounter any issues while following the tutorial or have suggestions for improvements, please don’t hesitate to reach out. Additionally, if there are any topics you’d like to see covered in future tutorials or documentation, we’d love to hear your ideas.</p>
+<p>Feel free to reach out. You find my contact details <a href="https://jonaruthardt.github.io/">here</a>. Thank you for using this resource, and I hope it helped you getting started using clusters for your own projects.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -913,11 +975,9 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
-<p>!!! note &quot;Now that we ended ...&quot;<br />
-Your feedback is important! If you encounter any issues while following the tutorial or have suggestions for improvements, please don’t hesitate to reach out. Additionally, if there are any topics you’d like to see covered in future tutorials or documentation, we’d love to hear your ideas.</p>
-<p>Feel free to reach out. You find my contact details <a href="https://jonaruthardt.github.io/">here</a>. Thank you for using this resource, and I hope it helped you getting started using clusters for your own projects.</p>
+<p>Slides available <a href="slides/cluster_tutorial.html">here</a></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
   font-size: 20px;
@@ -931,23 +991,7 @@ hr {
 hr {
   display: none; /* Hides horizontal lines */
 }
-;" data-marpit-pagination-total="38">
-<header>GPU Cluster Guide</header>
-<p>Slides available <a href="slides/cluster_tutorial.html">here</a></p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-header="GPU Cluster Guide" data-theme="default" data-style="section {
-  font-size: 20px;
-}
-hr {
-  display: none; /* Hides horizontal lines */
-}
-" lang="en-US" data-marpit-pagination="38" style="--paginate:true;--header:GPU Cluster Guide;--theme:default;--style:section {
-  font-size: 20px;
-}
-hr {
-  display: none; /* Hides horizontal lines */
-}
-;" data-marpit-pagination-total="38">
+;" data-marpit-pagination-total="37">
 <header>GPU Cluster Guide</header>
 </section>
 <script>!function(){"use strict";const t={h1:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"1"},style:"display: block; font-size: 2em; margin-block-start: 0.67em; margin-block-end: 0.67em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h2:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"2"},style:"display: block; font-size: 1.5em; margin-block-start: 0.83em; margin-block-end: 0.83em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h3:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"3"},style:"display: block; font-size: 1.17em; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h4:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"4"},style:"display: block; margin-block-start: 1.33em; margin-block-end: 1.33em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h5:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"5"},style:"display: block; font-size: 0.83em; margin-block-start: 1.67em; margin-block-end: 1.67em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h6:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"6"},style:"display: block; font-size: 0.67em; margin-block-start: 2.33em; margin-block-end: 2.33em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},span:{proto:()=>HTMLSpanElement},pre:{proto:()=>HTMLElement,style:"display: block; font-family: monospace; white-space: pre; margin: 1em 0; --marp-auto-scaling-white-space: pre;"}},e="data-marp-auto-scaling-wrapper",i="data-marp-auto-scaling-svg",n="data-marp-auto-scaling-container";class s extends HTMLElement{container;containerSize;containerObserver;svg;svgComputedStyle;svgPreserveAspectRatio="xMinYMid meet";wrapper;wrapperSize;wrapperObserver;constructor(){super();const t=t=>([e])=>{const{width:i,height:n}=e.contentRect;this[t]={width:i,height:n},this.updateSVGRect()};this.attachShadow({mode:"open"}),this.containerObserver=new ResizeObserver(t("containerSize")),this.wrapperObserver=new ResizeObserver(((...e)=>{t("wrapperSize")(...e),this.flushSvgDisplay()}))}static get observedAttributes(){return["data-downscale-only"]}connectedCallback(){this.shadowRoot.innerHTML=`\n<style>\n  svg[${i}] { display: block; width: 100%; height: auto; vertical-align: top; }\n  span[${n}] { display: table; white-space: var(--marp-auto-scaling-white-space, nowrap); width: max-content; }\n</style>\n<div ${e}>\n  <svg part="svg" ${i}>\n    <foreignObject><span ${n}><slot></slot></span></foreignObject>\n  </svg>\n</div>\n    `.split(/\n\s*/).join(""),this.wrapper=this.shadowRoot.querySelector(`div[${e}]`)??void 0;const t=this.svg;this.svg=this.wrapper?.querySelector(`svg[${i}]`)??void 0,this.svg!==t&&(this.svgComputedStyle=this.svg?window.getComputedStyle(this.svg):void 0),this.container=this.svg?.querySelector(`span[${n}]`)??void 0,this.observe()}disconnectedCallback(){this.svg=void 0,this.svgComputedStyle=void 0,this.wrapper=void 0,this.container=void 0,this.observe()}attributeChangedCallback(){this.observe()}flushSvgDisplay(){const{svg:t}=this;t&&(t.style.display="inline",requestAnimationFrame((()=>{t.style.display=""})))}observe(){this.containerObserver.disconnect(),this.wrapperObserver.disconnect(),this.wrapper&&this.wrapperObserver.observe(this.wrapper),this.container&&this.containerObserver.observe(this.container),this.svgComputedStyle&&this.observeSVGStyle(this.svgComputedStyle)}observeSVGStyle(t){const e=()=>{const i=(()=>{const e=t.getPropertyValue("--preserve-aspect-ratio");if(e)return e.trim();return`x${(({textAlign:t,direction:e})=>{if(t.endsWith("left"))return"Min";if(t.endsWith("right"))return"Max";if("start"===t||"end"===t){let i="rtl"===e;return"end"===t&&(i=!i),i?"Max":"Min"}return"Mid"})(t)}YMid meet`})();i!==this.svgPreserveAspectRatio&&(this.svgPreserveAspectRatio=i,this.updateSVGRect()),t===this.svgComputedStyle&&requestAnimationFrame(e)};e()}updateSVGRect(){let t=Math.ceil(this.containerSize?.width??0);const e=Math.ceil(this.containerSize?.height??0);void 0!==this.dataset.downscaleOnly&&(t=Math.max(t,this.wrapperSize?.width??0));const i=this.svg?.querySelector(":scope > foreignObject");if(i?.setAttribute("width",`${t}`),i?.setAttribute("height",`${e}`),this.svg&&(this.svg.setAttribute("viewBox",`0 0 ${t} ${e}`),this.svg.setAttribute("preserveAspectRatio",this.svgPreserveAspectRatio),this.svg.style.height=t<=0||e<=0?"0":""),this.container){const t=this.svgPreserveAspectRatio.toLowerCase();this.container.style.marginLeft=t.startsWith("xmid")||t.startsWith("xmax")?"auto":"0",this.container.style.marginRight=t.startsWith("xmi")?"auto":"0"}}}const r=(t,{attrs:e={},style:i})=>class extends t{constructor(...t){super(...t);for(const[t,i]of Object.entries(e))this.hasAttribute(t)||this.setAttribute(t,i);this._shadow()}static get observedAttributes(){return["data-auto-scaling"]}connectedCallback(){this._update()}attributeChangedCallback(){this._update()}_shadow(){if(!this.shadowRoot)try{this.attachShadow({mode:"open"})}catch(t){if(!(t instanceof Error&&"NotSupportedError"===t.name))throw t}return this.shadowRoot}_update(){const t=this._shadow();if(t){const e=i?`<style>:host { ${i} }</style>`:"";let n="<slot></slot>";const{autoScaling:s}=this.dataset;if(void 0!==s){n=`<marp-auto-scaling exportparts="svg:auto-scaling" ${"downscale-only"===s?"data-downscale-only":""}>${n}</marp-auto-scaling>`}t.innerHTML=e+n}}};let o;const a=Symbol();let l;const c="marpitSVGPolyfill:setZoomFactor,",d=Symbol(),h=Symbol();const g=()=>{const t="Apple Computer, Inc."===navigator.vendor,e=t?[u]:[],i={then:e=>(t?(async()=>{if(void 0===l){const t=document.createElement("canvas");t.width=10,t.height=10;const e=t.getContext("2d"),i=new Image(10,10),n=new Promise((t=>{i.addEventListener("load",(()=>t()))}));i.crossOrigin="anonymous",i.src="data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%20viewBox%3D%220%200%201%201%22%3E%3CforeignObject%20width%3D%221%22%20height%3D%221%22%20requiredExtensions%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%3E%3Cdiv%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%20style%3D%22width%3A%201px%3B%20height%3A%201px%3B%20background%3A%20red%3B%20position%3A%20relative%22%3E%3C%2Fdiv%3E%3C%2FforeignObject%3E%3C%2Fsvg%3E",await n,e.drawImage(i,0,0),l=e.getImageData(5,5,1,1).data[3]<128}return l})().then((t=>{null==e||e(t?[u]:[])})):null==e||e([]),i)};return Object.assign(e,i)};let p,m;function u(t){const e="object"==typeof t&&t.target||document,i="object"==typeof t?t.zoom:t;window[h]||(Object.defineProperty(window,h,{configurable:!0,value:!0}),document.body.style.zoom=1.0001,document.body.offsetHeight,document.body.style.zoom=1,window.addEventListener("message",(({data:t,origin:e})=>{if(e===window.origin)try{if(t&&"string"==typeof t&&t.startsWith(c)){const[,e]=t.split(","),i=Number.parseFloat(e);Number.isNaN(i)||(m=i)}}catch(t){console.error(t)}})));let n=!1;Array.from(e.querySelectorAll("svg[data-marpit-svg]"),(t=>{var e,s,r,o;t.style.transform||(t.style.transform="translateZ(0)");const a=i||m||t.currentScale||1;p!==a&&(p=a,n=a);const l=t.getBoundingClientRect(),{length:c}=t.children;for(let i=0;i<c;i+=1){const n=t.children[i];if(n.getScreenCTM){const t=n.getScreenCTM();if(t){const i=null!==(s=null===(e=n.x)||void 0===e?void 0:e.baseVal.value)&&void 0!==s?s:0,c=null!==(o=null===(r=n.y)||void 0===r?void 0:r.baseVal.value)&&void 0!==o?o:0,d=n.children.length;for(let e=0;e<d;e+=1){const s=n.children[e];if("SECTION"===s.tagName){const{style:e}=s;e.transformOrigin||(e.transformOrigin=`${-i}px ${-c}px`),e.transform=`scale(${a}) matrix(${t.a}, ${t.b}, ${t.c}, ${t.d}, ${t.e-l.left}, ${t.f-l.top}) translateZ(0.0001px)`;break}}}}}})),!1!==n&&Array.from(e.querySelectorAll("iframe"),(({contentWindow:t})=>{null==t||t.postMessage(`${c}${n}`,"null"===window.origin?"*":window.origin)}))}function v({once:t=!1,target:e=document}={}){const i=function(t=document){if(t[d])return t[d];let e=!0;const i=()=>{e=!1,delete t[d]};Object.defineProperty(t,d,{configurable:!0,value:i});let n=[],s=!1;(async()=>{try{n=await g()}finally{s=!0}})();const r=()=>{for(const e of n)e({target:t});s&&0===n.length||e&&window.requestAnimationFrame(r)};return r(),i}(e);return t?(i(),()=>{}):i}p=1,m=void 0;const w=Symbol(),b=(e=document)=>{if("undefined"==typeof window)throw new Error("Marp Core's browser script is valid only in browser context.");if(((e=document)=>{const i=window[a];i||customElements.define("marp-auto-scaling",s);for(const n of Object.keys(t)){const s=`marp-${n}`,a=t[n].proto();(o??(o=!!document.createElement("div",{is:"marp-auto-scaling"}).outerHTML.startsWith("<div is"),o))&&a!==HTMLElement?i||customElements.define(s,r(a,{style:t[n].style}),{extends:n}):(i||customElements.define(s,r(HTMLElement,t[n])),e.querySelectorAll(`${n}[is="${s}"]`).forEach((t=>{t.outerHTML=t.outerHTML.replace(new RegExp(`^<${n}`,"i"),`<${s}`).replace(new RegExp(`</${n}>$`,"i"),`</${s}>`)})))}window[a]=!0})(e),e[w])return e[w];const i=v({target:e}),n=()=>{i(),delete e[w]},l=Object.assign(n,{cleanup:n,update:()=>b(e)});return Object.defineProperty(e,w,{configurable:!0,value:l}),l},y=document.currentScript;b(y?y.getRootNode():document)}();
