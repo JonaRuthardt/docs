@@ -185,6 +185,7 @@
 <li><strong>Best practices for working with a cluster</strong> to maximize your productivity and the efficiency of your experiments</li>
 </ol>
 <p>While this tutorial was created for courses at <a href="https://www.utn.de">UTN</a> and, therefore, provides some instructions specific to the <a href="https://doc.nhr.fau.de/clusters/alex/">Alex cluster by FAU</a>, most aspects translate to other compute and GPU clusters as well. It can still serve as a helpful resource and introduction to the topic.</p>
+<p>You will find additional resources and practical examples that help you get started <a href="https://github.com/JonaRuthardt/HowToCluster">here</a>. </p>
 </div>
 <hr/>
 <h1 id="the-alex-cluster">The Alex Cluster</h1>
@@ -400,8 +401,14 @@ Log back into the login node and find your results at the respective location of
 <h1 id="connecting-to-the-cluster">Connecting to the Cluster</h1>
 <p>Now that you are familiar with compute clusters, let’s try using one. </p>
 <h2 id="connecting-to-alex-via-ssh">Connecting to Alex via SSH</h2>
-<p>We will use the Secure Shell Protocol (SSH) to connect our local machine to the remote cluster. For that, make sure you have a Terminal/PowerShell or SSH client like <a href="https://www.putty.org">PuTTY</a> handy.</p>
-<p>TODO: getting user credentials</p>
+<p>We will use the Secure Shell Protocol (SSH) to connect our local machine to the remote cluster. For that, make sure you have a Terminal/PowerShell or SSH client like <a href="https://www.putty.org">PuTTY</a> handy. However, before you can connect, there are a couple of setup steps necessary still. </p>
+<hr/>
+<h3 id="accepting-cluster-invitation">Accepting Cluster Invitation</h3>
+<p>By now, you should have received an invitation to the project <em>“UTN AI&amp;Robotics MSc Studierende”</em> on the <a href="https://portal.hpc.fau.de/">HPC-Portal</a>. Follow these steps to accept the invitation:</p>
+<ol>
+<li>Open the <a href="https://portal.hpc.fau.de/">HPC-Portal</a> and log in via your UTN account</li>
+<li>Go to “User” &gt; “Your Invitations” and accept the invitation</li>
+</ol>
 <hr/>
 <h3 id="configuring-ssh-keys">Configuring SSH Keys</h3>
 <p>To be able to access the cluster, authentication of your user is necessary. For this, we will be using SSH key pairs. Follow these steps for generating and uploading the keys:</p>
@@ -409,14 +416,13 @@ Log back into the login node and find your results at the respective location of
 <li>Generate an SSH key pair (secret + public key) on your local machine with <code>ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_nhr_fau</code> 
 You will be asked to (optionally) enter a passphrase</li>
 <li>Print out the public key using <code>cat ~/.ssh/id_ed25519_nhr_fau.pub</code> and copy the output</li>
-<li>Open the <a href="https://portal.hpc.fau.de/">HPC portal</a> and navigate to the “User” tab in your account settings and click on “Add new SSH key” button. 
+<li>Open the <a href="https://portal.hpc.fau.de/">HPC-Portal</a> and navigate to the “User” tab in your account settings and click on “Add new SSH key” button. 
 Enter an alias name of your choice and paste the copied output of the key file. </li>
 </ol>
-<p>After submitting, the key might take up to two hours to be distributed to all systems. During that time, you may not be able to log in yet. </p>
 <hr/>
 <h3 id="editing-ssh-config">Editing SSH Config</h3>
 <p>The Alex cluster is part of the bigger FAU high-performance compute center which uses a central dialog server from which a so-called <em>proxy jump</em> to the GPU cluster is performed. For this to work, we need to add some configurations to the <code>~/.ssh/config</code> file on your machine. This will ensure the cluster address, authentication method, etc. are all setup correctly when you try to connect. </p>
-<p>Replace <code>&lt;HPC account&gt;</code> with your user account (see <a href="https://portal.hpc.fau.de/">HPC portal</a> under <em>Your accounts &gt; Active accounts</em>) in the following template and paste it to your <code>~/.ssh/config</code> file:</p>
+<p>Replace <code>&lt;HPC account&gt;</code> with your user account (see <a href="https://portal.hpc.fau.de/">HPC-Portal</a> under <em>Your accounts &gt; Active accounts &gt; HPC-Account</em>) in the following template and paste it to your <code>~/.ssh/config</code> file:</p>
 <pre><code class="language-bash">Host csnhr.nhr.fau.de csnhr
     HostName csnhr.nhr.fau.de
     User &lt;HPC account&gt;
@@ -439,9 +445,14 @@ Host alex.nhr.fau.de alex
     ForwardX11Trusted no
 </code></pre>
 <hr/>
+<!-- _hide: true -->
 <div class="admonition note">
-<p class="admonition-title">Note …</p>
-<p>The file name and location must be <code>~/.ssh/config</code> (no file extension like .txt). You can edit the file using <code>nano</code> or your text editor of choice.</p>
+<p class="admonition-title">Notes about connecting via SSH …</p>
+<ol>
+<li>The user name you replace in the config file template will differ from the one used to log into the HPC-Portal. Be sure to use the one specified <em>Your accounts &gt; Active accounts</em> in the HPC-Portal.</li>
+<li>The file name and location must be <code>~/.ssh/config</code> (no file extension like .txt). You can edit the file using <code>nano</code> or your text editor of choice.</li>
+<li>After submitting the SSH key in the HPC-Portal, it might take up to two hours for the key to be distributed to all systems. During that time, you may not be able to log in yet. </li>
+</ol>
 </div>
 <hr/>
 <h3 id="testing-your-connection">Testing Your Connection</h3>
@@ -502,20 +513,20 @@ scp -r &lt;USERNAME&gt;@&lt;CLUSTER&gt;:/path/to/file path/to/destination
 <li><strong>Inefficient use of resources</strong> (testing and debugging might drastically reduce resource utilization)</li>
 </ul>
 <hr/>
-<h3 id="remote-development-with-vs-code">Remote Development with VS Code</h3>
-<ol>
-<li>Ensure you have VS Code installed on your local machine.</li>
-<li>In VS Code, install the “Remote Development” extension package.</li>
-<li>In the command pallete (cmd/strg + P), select “Remote-SSH: Connect to Host …”.</li>
-<li>If the configuration you created previously is correct, the Alex cluster should already show up as an selectable option.</li>
-<li>Now, you can use the familiar VS Code interface but interact with files and the command line on the cluster instead of on your machine.</li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">About debugging …</p>
-<p>If you want to debug and execute code using your VS Code environment, be sure to connect to an interactive node instead of running it on the login node. </p>
-</div>
-<p>For more information about remote development using SSH, <a href="https://code.visualstudio.com/docs/remote/ssh">see the official documentation</a>.</p>
-<hr/>
+<!-- ### Remote Development with VS Code
+
+1. Ensure you have VS Code installed on your local machine.
+2. In VS Code, install the “Remote Development” extension package.
+3. In the command pallete (cmd/strg + P), select “Remote-SSH: Connect to Host …”.
+4. If the configuration you created previously is correct, the Alex cluster should already show up as an selectable option.
+5. Now, you can use the familiar VS Code interface but interact with files and the command line on the cluster instead of on your machine.
+
+!!! note "About debugging ..."
+    If you want to debug and execute code using your VS Code environment, be sure to connect to an interactive node instead of running it on the login node. 
+
+For more information about remote development using SSH, [see the official documentation](https://code.visualstudio.com/docs/remote/ssh).
+
+--- -->
 <h1 id="setting-up-the-environment">Setting up the Environment</h1>
 <p>Once you are authenticated and logged into the cluster, the next step is to set up your environment further to ensure you can use the necessary software and GPU resources.</p>
 <hr/>
@@ -535,7 +546,8 @@ scp -r &lt;USERNAME&gt;@&lt;CLUSTER&gt;:/path/to/file path/to/destination
 <p>A conda installation is already available through the <code>python</code> module you just loaded. You can create a new environment with the following command:</p>
 <pre><code class="language-bash">conda create --name &lt;ENV_NAME&gt; python=&lt;PYTHON_VERSION&gt;
 </code></pre>
-<p>Once activated (<code>conda activate &lt;ENV_NAME&gt;</code>), you can install libraries using <code>pip</code> or <code>conda</code>. Install packages using an (interactive) job to ensure the hardware is correctly supported. As the compute nodes are not configured with internet access by default, it is important to configure the proxy so that additional software can be downloaded:</p>
+<p>Alternatively, you can of course also use an existing environment configuration as a basis (i.e., <code>conda env create -f environment.yml</code> or <code>conda create --name &lt;ENV_NAME&gt; --file requirements.txt</code>).
+Once activated (<code>conda activate &lt;ENV_NAME&gt;</code>), you can install libraries using <code>pip</code> or <code>conda</code>. Install packages using an (interactive) job to ensure the hardware is correctly supported. As the compute nodes are not configured with internet access by default, it is important to configure the proxy so that additional software can be downloaded:</p>
 <pre><code class="language-bash">export http_proxy=http://proxy:80
 export https_proxy=http://proxy:80
 </code></pre>
@@ -568,9 +580,9 @@ a40*         up 1-00:00:00      8   idle a[0424-0429,0521-0522]
     1234568       a40 run_experiment       &lt;USERID&gt;  R    2:39:34    23:59:00      1   16 a0603
 </code></pre>
 <ul>
-<li><code>sbatch</code>: Used to submit batch jobs to the SLURM scheduler (e.g., <code>sbatch my_job_file.job</code>).
+<li><code>sbatch</code>: Used to <strong>submit batch jobs</strong> to the SLURM scheduler (e.g., <code>sbatch my_job_file.job</code>).
 Once submitted, the job will be added to the queue and get assigned a unique job ID.</li>
-<li><code>scancel</code>: Cancels a specific job given its job ID (e.g., <code>scancel 1234568</code>).</li>
+<li><code>scancel</code>: <strong>Cancels a specific job</strong> given its job ID (e.g., <code>scancel 1234568</code>).</li>
 </ul>
 <hr/>
 <h2 id="job-files">Job Files</h2>
@@ -585,6 +597,7 @@ Once submitted, the job will be added to the queue and get assigned a unique job
 
 module purge
 module load python # load preinstalled python module (includes conda) 
+conda activate &lt;ENV_NAME&gt; # activate environment
 
 python -c "import torch; print('cuda available:', torch.cuda.is_available())"
 </code></pre>
@@ -599,6 +612,7 @@ python -c "import torch; print('cuda available:', torch.cuda.is_available())"
 </code></pre>
 <p>In the job file, specify the experiments/code you want to execute. Afterwards, you can submit the job via the <code>sbatch</code> command.</p>
 <hr/>
+<!-- _hide: true -->
 <h2 id="job-arrays">Job Arrays</h2>
 <p>Batch arrays enable you to run multiple similar jobs in one go. This can be useful when iterating over different model configurations (e.g., hyperparameter tuning) and is more convenient than manually managing and scheduling various jobs yourself.</p>
 <p>With <em>job arrays</em>, SLURM enables you to run the same program with different parameters. The following example executes the <code>experiment.py</code> file with different learning rate parameters:</p>
@@ -611,6 +625,11 @@ python -c "import torch; print('cuda available:', torch.cuda.is_available())"
 #SBATCH --gres=gpu:a40:1
 #SBATCH --nodes=1
 
+# Setup environment
+module purge
+module load python
+conda activate &lt;ENV_NAME&gt;
+
 # Define parameters for each task
 LEARNING_RATES=("0.01" "0.001" "0.0001" "0.00001" "0.000001")
 LR=${LEARNING_RATES[$SLURM_ARRAY_TASK_ID]}
@@ -619,7 +638,7 @@ LR=${LEARNING_RATES[$SLURM_ARRAY_TASK_ID]}
 python experiment.py --lr=$LR
 </code></pre>
 <p>Here, <code>$SLURM_ARRAY_TASK_ID</code> is automatically set to the corresponding task ID. The total number of tasks is stored in <code>$SLURM_ARRAY_TASK_COUNT</code>. You can additionally specify the maximum number of concurrent jobs using the <code>%</code> operator (e.g., <code>--array=0-7%4</code> creates 8 tasks but only runs 4 of them at any time). The output is saved to a text file named <code>results_&lt;job_id&gt;_&lt;task_id&gt;</code> indicated by <code>%A</code> and <code>%a</code>, respectively. </p>
-<p>For a more detailed introduction and advanced use cases see the <a href="https://slurm.schedmd.com/job_array.html">official SLURM documentation</a>. Another handy way of organizing and executing experiments with job arrays for hyperparameter sweeps is suggested by <a href="https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial1/Lisa_Cluster.html#Job-Arrays">Phillip Lippe</a>.</p>
+<p>For a more detailed introduction and advanced use cases see the <a href="https://slurm.schedmd.com/job_array.html">official SLURM documentation</a>. Another handy way of organizing and executing experiments with job arrays for hyperparameter sweeps is suggested by <a href="https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial1/Lisa_Cluster.html#Job-Arrays">Phillip Lippe</a>. Instead of specifying the hyperparameters in the job file itself, it can be recomendable to use a configuration management framework like <a href="https://hydra.cc/docs/intro/">Hydra</a>.</p>
 <hr/>
 <h2 id="interactive-sessions">Interactive Sessions</h2>
 <p>Interactive sessions allow you to access a compute node directly for debugging or experimentation. Unlike normal jobs, interactive sessions make it possible to continuously execute code without terminating the resource allocation after the initial script concludes. This can be useful for verifying the correctness of commands or debugging where waiting for resource allocation after every small change is unfeasible.</p>
@@ -640,12 +659,19 @@ python experiment.py --lr=$LR
 <p>After replacing <code>&lt;JOB_ID&gt;</code> with your specific job ID (can be obtained via <code>squeue</code>), you can use tools like <code>nvidia-smi</code> or <code>htop</code> to check how the available resources are utilized. </p>
 <hr/>
 <h1 id="best-practices_1">Best Practices</h1>
+<hr/>
 <h3 id="test-your-code">Test Your Code</h3>
 <p>Make sure your code runs before scheduling large-scale experiments (e.g., test locally or with small subset of data). It is frustrating to have jobs fail mid-way, especially when the cluster is busy and allocation might take a while (also, we don’t want to waste our scarce GPU resources 😢).</p>
+<hr/>
+<h3 id="monitor-your-resource-utilization">Monitor Your Resource Utilization</h3>
+<p>Even when your code runs without errors and produces the expected results, it is still possible that it doesn’t make use of the hardware resources effectively. To diagnose such issues, you can use the <a href="https://monitoring.nhr.fau.de/">ClusterCockpit</a> that shows you the resource usage over the runtime of your jobs (e.g., CPU/GPU load and memory usage). That way, you can identify potnential bottleneck and implement your approach more efficiently. </p>
+<hr/>
 <h3 id="only-request-resources-you-need">Only Request Resources You Need</h3>
 <p>Make sure to only request as many resources as you actually need. Besides not taking up GPUs that others could use, there’s also something in for you: the shorter the job and the fewer resources required, the faster resources will be allocated. That said, requesting too little (esp. runtime) may cause your experiments to be terminated too early or fail due to out-of-memory (OOM) errors. Knowing the requirements of your setup is important and factor in a little leeway. </p>
+<hr/>
 <h3 id="use-version-control">Use Version Control</h3>
 <p>Despite some of the filesystem being backed up and creating regular snapshots, a risk of losing data remains. Therefore, be sure to regularly commit and push changes made to your codebase (e.g., via github).</p>
+<hr/>
 <h3 id="data-staging">Data Staging</h3>
 <p>Staging your data can be helpful when working with models or data that require frequent IO operations (e.g., regularly loading many files). At the beginning of your job, copy/extract your data to the node-local and very fast <code>$TMPDIR</code> directory before executing your experiments. Compared to directly loading from the original directory (e.g., <code>$WORK</code>), this additional step can significantly speed up some workflows and improve resource utilization. </p>
 <hr/>
@@ -665,7 +691,8 @@ python experiment.py --lr=$LR
 <p>Your feedback is important! If you encounter any issues while following the tutorial or have suggestions for improvements, please don’t hesitate to reach out. Additionally, if there are any, we’d love to hear your ideas on topics you’d like to see covered in future tutorials or documentation, we’d love to reach out. You can find my contact details <a href="https://jonaruthardt.github.io/">here</a>. Thank you for using this resource, and I hope it helped you get started using clusters for your own projects.</p>
 </div>
 <hr/>
-<p>Slides available <a href="../slides/cluster_tutorial.html">here</a></p>
+<p>Slides available <a href="../slides/cluster_tutorial.html">here</a>
+Practical resources available <a href="https://github.com/JonaRuthardt/HowToCluster">here</a></p>
 <hr/></div>
 </div>
 </div>
