@@ -250,7 +250,7 @@ hr {
 <tr>
 <td>$HPCVAULT</td>
 <td>Long-term storage of data</td>
-<td>Yes (less frequent)</td>
+<td>Yes (infrequent)</td>
 <td>Slow</td>
 <td>500 GB</td>
 </tr>
@@ -316,7 +316,7 @@ hr {
 <header>GPU Cluster Guide</header>
 <h3 id="best-practices">Best Practices</h3>
 <ul>
-<li>Use $HOME or $HPCVAULT for important files due to backups and snapshots</li>
+<li>Use $HOME for important files due to regular backups and snapshots</li>
 <li>Store temporary or large files in $WORK, or $TMPDIR (will be deleted after the job finished!).</li>
 <li>Stage your data to node-local $TMPDIR when fast read/write operations are essential (<a href="https://doc.nhr.fau.de/data/staging/?h=data+staging#staging-data-in-and-out">cf</a>)</li>
 <li>Regularly monitor quotas (run <code>shownicerquota.pl</code>) and clean up unnecessary files</li>
