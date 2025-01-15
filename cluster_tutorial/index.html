@@ -185,7 +185,7 @@
 <li><strong>Best practices for working with a cluster</strong> to maximize your productivity and the efficiency of your experiments</li>
 </ol>
 <p>While this tutorial was created for courses at <a href="https://www.utn.de">UTN</a> and, therefore, provides some instructions specific to the <a href="https://doc.nhr.fau.de/clusters/alex/">Alex cluster by FAU</a>, most aspects translate to other compute and GPU clusters as well. It can still serve as a helpful resource and introduction to the topic.</p>
-<p>You will find additional resources and practical examples that help you get started <a href="https://github.com/JonaRuthardt/HowToCluster">here</a>. </p>
+<p>You will find additional resources and practical examples that help you get started <a href="https://github.com/JonaRuthardt/HowToCluster">in this github repository</a>. </p>
 </div>
 <hr/>
 <h1 id="the-alex-cluster">The Alex Cluster</h1>
@@ -543,7 +543,17 @@ For more information about remote development using SSH, [see the official docum
 <hr/>
 <h2 id="conda">Conda</h2>
 <p>Once you have loaded the appropriate Python module, creating an isolated Python environment for each project using Conda or Python’s venvs is good practice. This ensures your dependencies are self-contained and avoids interference with other users or projects.</p>
-<p>A conda installation is already available through the <code>python</code> module you just loaded. You can create a new environment with the following command:</p>
+<p>A conda installation is already available through the <code>python</code> module you just loaded. Before you use <code>conda</code> for the first time, run the following commands to correctly setup where the environment and packages will be stored:</p>
+<pre><code class="language-bash">if [ ! -f ~/.bash_profile ]; then
+  echo "if [ -f ~/.bashrc ]; then . ~/.bashrc; fi" &gt; ~/.bash_profile
+fi
+module add python
+conda config --add pkgs_dirs $WORK/software/private/conda/pkgs
+conda config --add envs_dirs $WORK/software/private/conda/envs
+</code></pre>
+<p>This has only to be done once.</p>
+<hr/>
+<p>You can now create a new environment with the following command:</p>
 <pre><code class="language-bash">conda create --name &lt;ENV_NAME&gt; python=&lt;PYTHON_VERSION&gt;
 </code></pre>
 <p>Alternatively, you can of course also use an existing environment configuration as a basis (i.e., <code>conda env create -f environment.yml</code> or <code>conda create --name &lt;ENV_NAME&gt; --file requirements.txt</code>).
